@@ -21,7 +21,7 @@ class PipelineStack(Stack):
     pipeline = pipelines.CodePipeline(self, "Pipeline",
       synth=pipelines.ShellStep("Synth",
         input=source,
-        primary_output_directory="aws",
+        primary_output_directory="aws/cdk.out",
         commands=[
           "cd aws",
           "npm install -g aws-cdk",
@@ -29,4 +29,6 @@ class PipelineStack(Stack):
           "npx cdk synth"
       ])
     )
+
+
 
