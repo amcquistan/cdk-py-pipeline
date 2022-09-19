@@ -3,19 +3,8 @@ import aws_cdk.assertions as assertions
 from cdk_py_pipeline.cdk_py_pipeline_stack import CdkPyPipelineStack
 
 
-def test_sqs_queue_created():
+def test_pipeline_created():
     app = core.App()
-    stack = CdkPyPipelineStack(app, "cdk-py-pipeline")
+    stack = CdkPyPipelineStack(app, "stack", connection_arn="faked")
     template = assertions.Template.from_stack(stack)
-
-    template.has_resource_properties("AWS::SQS::Queue", {
-        "VisibilityTimeout": 300
-    })
-
-
-def test_sns_topic_created():
-    app = core.App()
-    stack = CdkPyPipelineStack(app, "cdk-py-pipeline")
-    template = assertions.Template.from_stack(stack)
-
-    template.resource_count_is("AWS::SNS::Topic", 1)
+    template.resource_count_is("AWS::CodePipeline::Pipeline", 1)
