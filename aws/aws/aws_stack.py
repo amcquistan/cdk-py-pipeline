@@ -31,7 +31,8 @@ class PipelineStack(Stack):
         input=source,
         primary_output_directory="aws/cdk.out",
         commands=base_commands + [
-          "npx cdk synth"
+          "npx cdk synth",
+          "ls -l"
       ])
     )
     
@@ -42,6 +43,12 @@ class PipelineStack(Stack):
         commands=base_commands + [
             "pip install -r requirements-dev.txt",
             "pytest"
+        ]
+    ))
+    infra_deploy.add_post(pipelines.ShellStep(
+        "Infra Post",
+        commands=base_commands + [
+            "ls -l"
         ]
     ))
 
