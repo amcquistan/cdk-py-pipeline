@@ -29,24 +29,23 @@ class CdkPyPipelineStack(Stack):
       synth=pipelines.ShellStep("Synth",
         input=source,
         commands=base_commands + [
-          "npx cdk synth",
-          "ls -l"
+          "npx cdk synth"
       ])
     )
     
-    infra_stage = InfrastructureStage(self, "Infra")
-    infra_deploy = pipeline.add_stage(infra_stage)
-    infra_deploy.add_pre(pipelines.ShellStep(
-        "Test Infra",
-        commands=base_commands + [
-            "pip install -r requirements-dev.txt",
-            "pytest"
-        ]
-    ))
-    infra_deploy.add_post(pipelines.ShellStep(
-        "Infra Post",
-        commands=base_commands + [
-            "ls -l"
-        ]
-    ))
+    # infra_stage = InfrastructureStage(self, "Infra")
+    # infra_deploy = pipeline.add_stage(infra_stage)
+    # infra_deploy.add_pre(pipelines.ShellStep(
+    #     "Test Infra",
+    #     commands=base_commands + [
+    #         "pip install -r requirements-dev.txt",
+    #         "pytest"
+    #     ]
+    # ))
+    # infra_deploy.add_post(pipelines.ShellStep(
+    #     "Infra Post",
+    #     commands=base_commands + [
+    #         "ls -l"
+    #     ]
+    # ))
 
