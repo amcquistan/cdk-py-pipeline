@@ -4,10 +4,10 @@ from aws_cdk import (
     pipelines
 )
 
-from aws.infrastructure import InfrastructureStage
+from cdk_py_pipeline.infrastructure import InfrastructureStage
 
 
-class PipelineStack(Stack):
+class CdkPyPipelineStack(Stack):
   def __init__(self, scope: Construct, construct_id: str, connection_arn: str, **kwargs):
     super().__init__(scope, construct_id, **kwargs)
     
@@ -19,7 +19,6 @@ class PipelineStack(Stack):
     )
     
     base_commands = [
-        "cd aws",
         "npm install -g aws-cdk",
         "pip install -r requirements.txt",
     ]
@@ -29,7 +28,6 @@ class PipelineStack(Stack):
     pipeline = pipelines.CodePipeline(self, "Pipeline",
       synth=pipelines.ShellStep("Synth",
         input=source,
-        primary_output_directory="aws/cdk.out",
         commands=base_commands + [
           "npx cdk synth",
           "ls -l"
