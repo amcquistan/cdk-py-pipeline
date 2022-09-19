@@ -18,7 +18,7 @@ class InfrastructureStack(Stack):
     vpc = ec2.Vpc(self, "vpc", max_azs=2)
     fargate_cluster = ecs.Cluster(self, "fargate-cluster", vpc=vpc)
 
-    self.vpc_output = CfnOutput(self, "vpc-id", value=vpc.vpc_id)
+    self.vpc_id = CfnOutput(self, "vpc-id", value=vpc.vpc_id)
     self.fargate_cluster_arn = CfnOutput(self, "fargate-cluster-arn", value=fargate_cluster.cluster_arn)
 
 
